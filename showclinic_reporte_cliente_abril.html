@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root {
+  --bg: #faf9f7;
+  --white: #ffffff;
+  --border: #ede9e3;
+  --text: #1c1917;
+  --muted: #78716c;
+  --soft: #f5f3ef;
+  --gold: #b45309;
+  --gold-bg: #fef3c7;
+  --green: #166534;
+  --green-bg: #dcfce7;
+  --rose: #9f1239;
+  --rose-bg: #ffe4e6;
+  --teal: #0f766e;
+  --teal-bg: #ccfbf1;
+  --shadow: 0 1px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 32px 28px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-area {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 6px 18px 6px 8px;
+}
+.logo-dot {
+  width: 28px; height: 28px;
+  background: var(--text);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+}
+.logo-area span { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0.3px; }
+.header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.header p { color: var(--muted); font-size: 15px; }
+.period-badge {
+  display: inline-block;
+  margin-top: 12px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 16px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* SUMMARY HERO */
+.hero {
+  background: var(--text);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero-stat {
+  text-align: center;
+  padding: 0 20px;
+}
+.hero-stat:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.hero-stat .emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.hero-stat .big { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1; margin-bottom: 4px; }
+.hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 400; }
+.hero-stat .accent { color: #fbbf24; }
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab:hover { border-color: var(--text); color: var(--text); }
+.tab.active { background: var(--text); color: white; border-color: var(--text); }
+
+/* SECTION */
+.section { display: none; }
+.section.active { display: block; }
+
+/* CAMPAIGN CARD */
+.camp-intro {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.camp-intro-left h2 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 4px; }
+.camp-intro-left p { font-size: 13px; color: var(--muted); }
+.result-pill {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.pill-gold { background: var(--gold-bg); color: var(--gold); }
+.pill-green { background: var(--green-bg); color: var(--green); }
+.pill-teal { background: var(--teal-bg); color: var(--teal); }
+
+/* STAT CARDS */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.stat-card .icon { font-size: 22px; margin-bottom: 8px; }
+.stat-card .number { font-family: 'DM Serif Display', serif; font-size: 30px; line-height: 1; margin-bottom: 4px; }
+.stat-card .label { font-size: 12px; color: var(--muted); font-weight: 500; }
+.stat-card .explain { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.stat-card.featured { background: var(--soft); border-color: #d6cfc6; }
+
+/* WHAT WORKED */
+.findings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.finding {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.finding .find-icon { font-size: 24px; margin-bottom: 10px; }
+.finding h4 { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--text); }
+.finding p { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.finding.highlight { border-left: 3px solid #22c55e; }
+.finding.warning { border-left: 3px solid #f97316; }
+.finding.info { border-left: 3px solid #3b82f6; }
+.finding.star { border-left: 3px solid #f59e0b; background: var(--gold-bg); border-color: #fde68a; }
+.finding.star h4 { color: var(--gold); }
+
+/* WINNER BOX */
+.winner {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.winner-icon { font-size: 40px; flex-shrink: 0; }
+.winner h3 { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--green); margin-bottom: 4px; }
+.winner p { font-size: 13px; color: #166534; line-height: 1.5; }
+
+/* AUDIENCE TABLE */
+.audience-section { background: var(--white); border-radius: 16px; padding: 22px 24px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px; }
+.audience-section h3 { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.audience-section .sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.age-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.age-row:last-child { border-bottom: none; }
+.age-label { width: 70px; font-weight: 600; font-size: 13px; flex-shrink: 0; }
+.age-bar-wrap { flex: 1; }
+.age-bar { height: 8px; border-radius: 4px; background: var(--text); transition: width 0.6s ease; }
+.age-meta { width: 120px; text-align: right; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.age-tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.tag-best { background: var(--green-bg); color: var(--green); }
+.tag-ok { background: var(--soft); color: var(--muted); }
+.tag-watch { background: var(--rose-bg); color: var(--rose); }
+
+/* COMPARE SECTION */
+.compare-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 24px; }
+.comp-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.comp-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.comp-card .camp-emoji { font-size: 32px; margin-bottom: 10px; display: block; }
+.comp-card h3 { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.comp-card .conv { font-family: 'DM Serif Display', serif; font-size: 36px; margin: 10px 0 2px; }
+.comp-card .conv-label { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+.comp-card .cost { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.comp-card .cost-label { font-size: 11px; color: var(--muted); }
+.comp-card.best { border-color: #86efac; background: linear-gradient(180deg, #f0fdf4 0%, white 60%); }
+.comp-card.best h3 { color: var(--green); }
+
+/* RECOMMENDATION */
+.reco {
+  background: var(--text);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  margin-top: 8px;
+}
+.reco h3 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 16px; color: #fbbf24; }
+.reco-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.reco-item { display: flex; gap: 10px; align-items: flex-start; }
+.reco-item .ri { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.reco-item p { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.85); }
+.reco-item strong { color: white; display: block; font-size: 13px; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-area">
+    <div class="logo-dot">SC</div>
+    <span>Showclinic</span>
+  </div>
+  <h1>¿Cómo nos fue en abril?</h1>
+  <p>Resumen de resultados de publicidad en Facebook e Instagram</p>
+  <div class="period-badge">📅 Abril 1 – 29, 2026</div>
+</div>
+
+<!-- HERO TOTALS -->
+<div class="hero">
+  <div class="hero-stat">
+    <span class="emoji">💬</span>
+    <div class="big accent">696</div>
+    <div class="label">personas nos escribieron por WhatsApp</div>
+  </div>
+  <div class="hero-stat">
+    <span class="emoji">👁️</span>
+    <div class="big">186K</div>
+    <div class="label">personas vieron nuestros anuncios</div>
+  </div>
+  <div class="hero-stat">
+    <span class="emoji">💰</span>
+    <div class="big">S/3.38</div>
+    <div class="label">costo promedio por cada mensaje recibido</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showTab('resumen')">📊 Resumen del mes</button>
+  <button class="tab" onclick="showTab('abril')">Campaña Abril</button>
+  <button class="tab" onclick="showTab('cyber')">CyberWow</button>
+  <button class="tab" onclick="showTab('fin')">Final de Mes</button>
+</div>
+
+<!-- ===== RESUMEN ===== -->
+<div class="section active" id="tab-resumen">
+
+  <p class="section-title">Las 3 campañas del mes</p>
+  <p class="section-sub">Cada campaña tuvo un objetivo distinto. Aquí el resultado de cada una.</p>
+
+  <div class="compare-cards">
+    <div class="comp-card" onclick="showTab('abril')">
+      <span class="camp-emoji">📣</span>
+      <h3>Campaña Abril</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">La campaña principal del mes</div>
+      <div class="conv">400</div>
+      <div class="conv-label">personas nos escribieron</div>
+      <div class="cost" style="color:var(--gold)">S/3.88</div>
+      <div class="cost-label">por mensaje recibido</div>
+    </div>
+    <div class="comp-card" onclick="showTab('cyber')">
+      <span class="camp-emoji">⚡</span>
+      <h3>CyberWow</h3>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Ofertas especiales de Cyber</div>
+      <div class="conv" style="color:var(--teal)">142</div>
+      <div class="conv-label">personas nos escribieron</div>
+      <div class="cost" style="color:var(--teal)">S/3.39</div>
+      <div class="cost-label">por mensaje recibido</div>
+    </div>
+    <div class="comp-card best" onclick="showTab('fin')">
+      <span class="camp-emoji">🏆</span>
+      <h3>Final de Mes ★</h3>
+      <div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:8px">La más eficiente del mes</div>
+      <div class="conv" style="color:var(--green)">154</div>
+      <div class="conv-label">personas nos escribieron</div>
+      <div class="cost" style="color:var(--green)">S/2.08</div>
+      <div class="cost-label">por mensaje recibido</div>
+    </div>
+  </div>
+
+  <div class="winner">
+    <div class="winner-icon">🥇</div>
+    <div>
+      <h3>Ganadora del mes: Final de Mes</h3>
+      <p>Con solo S/320 invertidos, generamos 154 consultas — el costo más bajo de las tres campañas. El secreto: un solo anuncio de Mini Armonización con fotos de antes y después que enganchó a la audiencia perfecta.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <h3>🎯 Lo que aprendimos este mes</h3>
+    <div class="reco-list">
+      <div class="reco-item"><div class="ri">📸</div><div><strong>El antes/después vende más que todo</strong><p>El anuncio de Mini Armonización con fotos de resultado fue el más exitoso del mes por lejos.</p></div></div>
+      <div class="reco-item"><div class="ri">🎬</div><div><strong>Los videos funcionan mejor que las fotos</strong><p>En todos los servicios, el video generó más consultas que la imagen estática.</p></div></div>
+      <div class="reco-item"><div class="ri">👩</div><div><strong>Las mujeres de 18–34 son las que más responden</strong><p>Son el público más activo y también uno de los más económicos de alcanzar.</p></div></div>
+      <div class="reco-item"><div class="ri">💡</div><div><strong>Las ofertas con fecha límite generan más acción</strong><p>CyberWow y Final de Mes tuvieron más clics por anuncio que la campaña regular.</p></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CAMPAÑA ABRIL ===== -->
+<div class="section" id="tab-abril">
+  <div class="camp-intro">
+    <div class="camp-intro-left">
+      <h2>📣 Campaña Abril</h2>
+      <p>La campaña que estuvo activa todo el mes con descuentos del 15–20%</p>
+    </div>
+    <div class="result-pill pill-gold">Mayor alcance del mes</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card featured">
+      <div class="icon">💬</div>
+      <div class="number">400</div>
+      <div class="label">Personas que nos escribieron</div>
+      <div class="explain">Cada una es una oportunidad de venta real</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">💰</div>
+      <div class="number" style="color:var(--gold)">S/3.88</div>
+      <div class="label">Costo por consulta</div>
+      <div class="explain">Lo que pagamos para que una persona nos escriba</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">👁️</div>
+      <div class="number">123K</div>
+      <div class="label">Personas que vieron los anuncios</div>
+      <div class="explain">El alcance total de la campaña en el mes</div>
+    </div>
+  </div>
+
+  <div class="audience-section">
+    <h3>¿Qué edades nos consultaron más?</h3>
+    <div class="sub">Las mujeres jóvenes son las que más responden — y también las más económicas de alcanzar</div>
+    <div class="age-row">
+      <div class="age-label">18–24</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:75%;background:#22c55e"></div></div>
+      <div class="age-meta">50 consultas <span class="age-tag tag-best">💚 Barato</span></div>
+    </div>
+    <div class="age-row">
+      <div class="age-label">25–34</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:100%"></div></div>
+      <div class="age-meta">132 consultas <span class="age-tag tag-ok">El más activo</span></div>
+    </div>
+    <div class="age-row">
+      <div class="age-label">35–44</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:52%;background:#f97316"></div></div>
+      <div class="age-meta">69 consultas <span class="age-tag tag-watch">⚠️ Más caro</span></div>
+    </div>
+    <div class="age-row">
+      <div class="age-label">45–54</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:38%"></div></div>
+      <div class="age-meta">50 consultas <span class="age-tag tag-ok">Normal</span></div>
+    </div>
+    <div class="age-row">
+      <div class="age-label">55–64</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:23%;background:#22c55e"></div></div>
+      <div class="age-meta">31 consultas <span class="age-tag tag-best">💚 Barato</span></div>
+    </div>
+    <div class="age-row">
+      <div class="age-label">65+</div>
+      <div class="age-bar-wrap"><div class="age-bar" style="width:13%;background:#22c55e"></div></div>
+      <div class="age-meta">17 consultas <span class="age-tag tag-best">💚 Muy barato</span></div>
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding highlight">
+      <div class="find-icon">🎬</div>
+      <h4>Los videos trajeron más clientes</h4>
+      <p>El anuncio de Mini Armonización en video generó 37% más consultas que la misma foto. Para Mayo, priorizamos video en todos los tratamientos.</p>
+    </div>
+    <div class="finding star">
+      <div class="find-icon">⭐</div>
+      <h4>Mini Armonización fue el tratamiento estrella</h4>
+      <p>Fue el tratamiento que más consultas generó, muy por encima de todos los demás. La audiencia lo conoce y lo desea.</p>
+    </div>
+    <div class="finding warning">
+      <div class="find-icon">⚠️</div>
+      <h4>Las personas de 35–44 costaron más alcanzar</h4>
+      <p>Para este rango de edad gastamos casi el doble que para llegar a alguien de 18–24. Podemos ajustar esto en Mayo.</p>
+    </div>
+    <div class="finding info">
+      <div class="find-icon">👴👵</div>
+      <h4>Las mayores de 55 respondieron muy bien</h4>
+      <p>Fueron de las más baratas de alcanzar y respondieron al anuncio. Un público que vale la pena explorar más.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CYBER ===== -->
+<div class="section" id="tab-cyber">
+  <div class="camp-intro">
+    <div class="camp-intro-left">
+      <h2>⚡ CyberWow</h2>
+      <p>Campaña de ofertas especiales por el evento CyberWow de abril</p>
+    </div>
+    <div class="result-pill pill-teal">El más visto por persona</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card featured">
+      <div class="icon">💬</div>
+      <div class="number">142</div>
+      <div class="label">Personas que nos escribieron</div>
+      <div class="explain">En menos días que la campaña principal</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">💰</div>
+      <div class="number" style="color:var(--teal)">S/3.39</div>
+      <div class="label">Costo por consulta</div>
+      <div class="explain">Más económico que la campaña regular gracias a las ofertas</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">🖱️</div>
+      <div class="number">2.44%</div>
+      <div class="label">De cada 100 que lo vieron, 2 hicieron clic</div>
+      <div class="explain">El mejor porcentaje de clics de las 3 campañas</div>
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding highlight">
+      <div class="find-icon">✂️</div>
+      <h4>El HIFU al 50% fue una sorpresa positiva</h4>
+      <p>El descuento fuerte del HIFU fue percibido como una oferta real y generó muchas consultas a bajo costo. Un descuento importante en un tratamiento premium funciona muy bien.</p>
+    </div>
+    <div class="finding star">
+      <div class="find-icon">👆</div>
+      <h4>Las ofertas con límite de tiempo generan más clics</h4>
+      <p>Los anuncios de Cyber tuvieron el mayor porcentaje de personas que hicieron clic. La urgencia del "solo hoy" motiva a la acción.</p>
+    </div>
+    <div class="finding warning">
+      <div class="find-icon">📋</div>
+      <h4>Demasiados anuncios a la vez</h4>
+      <p>Tuvimos más de 15 anuncios activos simultáneamente. El presupuesto se dispersó y varios anuncios casi no se mostraron. Menos anuncios, mejores resultados.</p>
+    </div>
+    <div class="finding info">
+      <div class="find-icon">🧪</div>
+      <h4>Jalupro necesita más presentación</h4>
+      <p>No generó consultas en esta campaña. Es un tratamiento que el público aún no conoce bien — primero hay que explicarlo antes de anunciarlo con descuento.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FINAL DE MES ===== -->
+<div class="section" id="tab-fin">
+  <div class="camp-intro">
+    <div class="camp-intro-left">
+      <h2>🏆 Final de Mes</h2>
+      <p>Mini Armonización 30% · Labios 25% · Baby Botox 20% · ADN Salmón 30%</p>
+    </div>
+    <div class="result-pill pill-green">★ La más eficiente del mes</div>
+  </div>
+
+  <div class="winner">
+    <div class="winner-icon">🥇</div>
+    <div>
+      <h3>Un solo anuncio hizo el 79% del trabajo</h3>
+      <p>El anuncio de Mini Armonización con fotos de antes y después generó 121 de las 154 consultas totales. Es el tipo de contenido que más convierte para Showclinic.</p>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card featured">
+      <div class="icon">💬</div>
+      <div class="number">154</div>
+      <div class="label">Personas que nos escribieron</div>
+      <div class="explain">Con el presupuesto más bajo de las tres campañas</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">💰</div>
+      <div class="number" style="color:var(--green)">S/2.08</div>
+      <div class="label">Costo por consulta</div>
+      <div class="explain">El más bajo del mes — casi la mitad que la campaña principal</div>
+    </div>
+    <div class="stat-card">
+      <div class="icon">💵</div>
+      <div class="number">S/320</div>
+      <div class="label">Total invertido</div>
+      <div class="explain">El menor gasto de las tres campañas, con gran resultado</div>
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding star">
+      <div class="find-icon">📸</div>
+      <h4>El antes y después es el formato ganador</h4>
+      <p>El anuncio con fotos de resultado real de Mini Armonización fue el más exitoso de TODO el mes de abril entre las 3 campañas. Para Mayo, replicar este formato en otros tratamientos.</p>
+    </div>
+    <div class="finding highlight">
+      <div class="find-icon">💚</div>
+      <h4>Las personas de 25–34 respondieron increíble</h4>
+      <p>Fue el grupo de edad con más consultas y además muy económico de alcanzar en esta campaña. La combinación perfecta.</p>
+    </div>
+    <div class="finding warning">
+      <div class="find-icon">👶</div>
+      <h4>Baby Botox quedó opacado</h4>
+      <p>Solo 9 consultas frente a 121 de Mini Armonización. Necesita su propio espacio — en Mayo podemos darle una campaña independiente para que brille solo.</p>
+    </div>
+    <div class="finding info">
+      <div class="find-icon">🧬</div>
+      <h4>ADN de Salmón necesita educación primero</h4>
+      <p>Muy pocas consultas. Es un tratamiento nuevo para el público — antes de anunciarlo hay que explicar qué es y qué hace. Un video educativo ayudaría mucho.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  const map = {resumen:0, abril:1, cyber:2, fin:3};
+  document.querySelectorAll('.tab')[map[id]].classList.add('active');
+}
+</script>
+</body>
+</html>
